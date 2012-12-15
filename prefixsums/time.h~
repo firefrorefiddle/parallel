@@ -1,1 +1,0 @@
-void write_timediff(struct timespec t0, struct timespec t1, long size);

@@ -1,7 +1,0 @@
-all: rec_openmp
-
-rec_openmp: rec_openmp.c rec_openmp.h time.o
-	gcc -o rec_openmp rec_openmp.c time.o
-
-time.o: time.c time.h
-	gcc -c time.c
