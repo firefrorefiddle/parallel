@@ -1,18 +1,31 @@
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "time.h"
 #include "common.h"
 #include "rec_openmp.h"
+#include "seq.h"
 
 static T *mk_test_array (long size)
 {
   T *x = (T*) malloc (sizeof(T) * size);  
+
+  if(x == NULL)
+    {
+      perror("Assign memory for test array");
+      exit(2);
+    }
 
   T i;
   for(i=0; i<size; ++i)
     x[i]=i+1;
 
   return x;
+}
+
+static void usage(int argc, char *argv[])
+{
+  fprintf(stderr, "Usage: %s -m seq|rec|nrec|dbl\n", argv[0]);
 }
 
 int main (int argc, char *argv[])
@@ -23,8 +36,30 @@ int main (int argc, char *argv[])
  
   T *ar = mk_test_array(size);
 
+  if(argc < 3 || strcmp(argv[1], "-m") != 0)
+    {
+      usage(argc, argv);
+      exit(1);
+    }
+
+  void (*method) (T *, T);
+
+  if(strcmp(argv[2], "rec") == 0)
+    {
+      method = &prefix_scan_rec;
+    }
+  else if(strcmp(argv[2], "seq") == 0)
+    {
+      method = &prefix_scan_seq;
+    }
+  else
+    {
+      usage(argc, argv);
+      exit(1);
+    }
+
   clock_gettime(CLOCK_REALTIME, &t0);
-  prefix_scan_rec(ar, size);
+  method(ar, size);
   clock_gettime(CLOCK_REALTIME, &t1);
 
   output("%ld\n", ar, size, true);
@@ -32,4 +67,5 @@ int main (int argc, char *argv[])
 
   write_timediff(stderr, t0, t1, size);
 
+  exit(0);
 }
