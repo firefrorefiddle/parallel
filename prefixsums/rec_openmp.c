@@ -12,7 +12,7 @@ void prefix_scan_rec(T *x, long n)
   long i;
 
 #ifndef NO_PARALLEL
-#pragma omp parallel shared(y)
+#pragma omp parallel private(i) shared(y)
   {
 #pragma omp for
 #endif
