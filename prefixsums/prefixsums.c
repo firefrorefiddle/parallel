@@ -4,6 +4,7 @@
 #include "time.h"
 #include "common.h"
 #include "rec_openmp.h"
+#include "nrec_openmp.h"
 #include "seq.h"
 
 static T *mk_test_array (long size)
@@ -51,6 +52,10 @@ int main (int argc, char *argv[])
   else if(strcmp(argv[2], "seq") == 0)
     {
       method = &prefix_scan_seq;
+    }
+  else  if(strcmp(argv[2], "nrec") == 0)
+    {
+      method = &prefix_scan_nrec;
     }
   else
     {

@@ -5,18 +5,21 @@ LD=gcc
 
 CC=gcc -c
 #uncomment for debug
-#CC=gcc -DNO_PARALLEL -c
+# CC=gcc -DNO_PARALLEL -c
 
 all: prefixsums
 
-prefixsums: prefixsums.o rec_openmp.o time.o helper.o seq.o $(COMMON_HEADERS)
-	$(LD) -o prefixsums prefixsums.o rec_openmp.o seq.o time.o helper.o $(LIBS) $(OMPFLAGS)
+prefixsums: prefixsums.o rec_openmp.o nrec_openmp.o time.o helper.o seq.o $(COMMON_HEADERS)
+	$(LD) -o prefixsums prefixsums.o rec_openmp.o nrec_openmp.o seq.o time.o helper.o $(LIBS) $(OMPFLAGS)
 
 prefixsums.o: prefixsums.c $(COMMON_HEADERS)
 	$(CC) prefixsums.c
 
 rec_openmp.o: rec_openmp.c rec_openmp.h $(COMMON_HEADERS)
 	$(CC) rec_openmp.c $(OMPFLAGS)
+
+nrec_openmp.o: nrec_openmp.c nrec_openmp.h $(COMMON_HEADERS)
+	$(CC) nrec_openmp.c $(OMPFLAGS)
 
 seq.o: seq.c seq.h $(COMMON_HEADERS)
 	$(CC) seq.c
