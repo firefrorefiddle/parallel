@@ -1,7 +1,7 @@
 #ifndef __HELPER_H__
 #define __HELPER_H__
 
-static void output (const char *fmt, T *ar, long size, bool justafew);
+void output (const char *fmt, T *ar, long size, bool justafew);
 
 static inline void debug_ar (T *ar, long size)
 {
