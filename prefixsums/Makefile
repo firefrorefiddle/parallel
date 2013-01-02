@@ -2,7 +2,10 @@ LIBS=-lrt
 OMPFLAGS=-fopenmp
 COMMON_HEADERS=common.h helper.h
 LD=gcc
+
 CC=gcc -c
+#uncomment for debug
+#CC=gcc -DNO_PARALLEL -c
 
 all: prefixsums
 
