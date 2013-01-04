@@ -22,11 +22,13 @@ void prefix_scan_dbl(T *x, long n)
 	  y[i] = x[i];
 	}
 
+#ifndef NO_PARALLEL
+#pragma omp for
+#endif
       for (i=k; i<n; i++) 
 	{
 	  y[i] = x[i-k]+x[i];
 	}
-      // barrier here;
 
 #ifndef NO_PARALLEL
     }
