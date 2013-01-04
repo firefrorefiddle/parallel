@@ -3,9 +3,7 @@ OMPFLAGS=-fopenmp
 COMMON_HEADERS=common.h helper.h
 LD=gcc
 
-CC=gcc -c -O3
-#uncomment for debug
-# CC=gcc -DNO_PARALLEL -c -O3
+CC=gcc -c -O3 $(OPT)
 
 all: prefixsums
 
