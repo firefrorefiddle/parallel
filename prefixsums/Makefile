@@ -1,14 +1,15 @@
 LIBS=-lrt
 OMPFLAGS=-fopenmp
-COMMON_HEADERS=common.h helper.h
+COMMON_HEADERS=../common/common.h ../common/helper.h ../common/timing.h
+COMMON_OBJS=../common/timing.o ../common/helper.o
 LD=gcc
 
-CC=gcc -c -O3 $(OPT)
+CC=gcc -I../common -c -O3 $(OPT)
 
 all: prefixsums
 
-prefixsums: prefixsums.o rec_openmp.o nrec_openmp.o time.o helper.o seq.o dbl_openmp.o $(COMMON_HEADERS)
-	$(LD) -o prefixsums prefixsums.o rec_openmp.o nrec_openmp.o seq.o time.o helper.o dbl_openmp.o $(LIBS) $(OMPFLAGS)
+prefixsums: prefixsums.o rec_openmp.o nrec_openmp.o seq.o dbl_openmp.o $(COMMON_HEADERS) $(COMMON_OBJS)
+	$(LD) -o prefixsums prefixsums.o rec_openmp.o nrec_openmp.o seq.o dbl_openmp.o $(COMMON_OBJS) $(LIBS) $(OMPFLAGS) 
 
 prefixsums.o: prefixsums.c $(COMMON_HEADERS)
 	$(CC) prefixsums.c
@@ -25,11 +26,11 @@ dbl_openmp.o: dbl_openmp.c dbl_openmp.h $(COMMON_HEADERS)
 seq.o: seq.c seq.h $(COMMON_HEADERS)
 	$(CC) seq.c
 
-time.o: time.c time.h $(COMMON_HEADERS)
-	$(CC) time.c
+../common/timing.o: $(COMMON_HEADERS)
+	cd ../common; make; cd $(OLDPWD)
 
-helper.o: helper.c $(COMMON_HEADERS)
-	$(CC) helper.c
+../common/helper.o: $(COMMON_HEADERS)
+	cd ../common; make; cd $(OLDPWD)
 
 clean:
-	rm -f *.o prefixsums
+	rm -f *.o prefixsums $(COMMON_OBJS)

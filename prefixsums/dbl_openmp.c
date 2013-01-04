@@ -1,6 +1,7 @@
 #include <stdlib.h>
-#include "common.h"
-#include "helper.h"
+
+#include <common.h>
+#include <helper.h>
 
 void prefix_scan_dbl(T *x, long n)
 {

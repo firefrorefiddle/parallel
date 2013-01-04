@@ -1,7 +1,6 @@
 #include <stdlib.h>
-#include "common.h"
-#include "helper.h"
-
+#include <common.h>
+#include <helper.h>
 
 void prefix_scan_nrec(T *x, long n)
 {

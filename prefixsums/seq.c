@@ -1,5 +1,5 @@
 #include "seq.h"
-#include "common.h"
+#include <common.h>
 
 void prefix_scan_seq(T *x, long n)
 {

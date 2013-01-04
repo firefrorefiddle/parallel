@@ -1,4 +1,4 @@
-#include "time.h"
+#include "timing.h"
 
 void write_timediff(FILE *stream, struct timespec t0, struct timespec t1, long size)
 {

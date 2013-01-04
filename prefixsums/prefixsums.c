@@ -1,8 +1,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "time.h"
-#include "common.h"
+#include <omp.h>
+#include <time.h>
+
+#include <timing.h>
+#include <common.h>
+
 #include "rec_openmp.h"
 #include "nrec_openmp.h"
 #include "dbl_openmp.h"
