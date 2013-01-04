@@ -7,8 +7,8 @@ CC=gcc -c -O3 $(OPT)
 
 all: prefixsums
 
-prefixsums: prefixsums.o rec_openmp.o nrec_openmp.o time.o helper.o seq.o $(COMMON_HEADERS)
-	$(LD) -o prefixsums prefixsums.o rec_openmp.o nrec_openmp.o seq.o time.o helper.o $(LIBS) $(OMPFLAGS)
+prefixsums: prefixsums.o rec_openmp.o nrec_openmp.o time.o helper.o seq.o dbl_openmp.o $(COMMON_HEADERS)
+	$(LD) -o prefixsums prefixsums.o rec_openmp.o nrec_openmp.o seq.o time.o helper.o dbl_openmp.o $(LIBS) $(OMPFLAGS)
 
 prefixsums.o: prefixsums.c $(COMMON_HEADERS)
 	$(CC) prefixsums.c
@@ -18,6 +18,9 @@ rec_openmp.o: rec_openmp.c rec_openmp.h $(COMMON_HEADERS)
 
 nrec_openmp.o: nrec_openmp.c nrec_openmp.h $(COMMON_HEADERS)
 	$(CC) nrec_openmp.c $(OMPFLAGS)
+
+dbl_openmp.o: dbl_openmp.c dbl_openmp.h $(COMMON_HEADERS)
+	$(CC) dbl_openmp.c $(OMPFLAGS)
 
 seq.o: seq.c seq.h $(COMMON_HEADERS)
 	$(CC) seq.c

@@ -5,6 +5,7 @@
 #include "common.h"
 #include "rec_openmp.h"
 #include "nrec_openmp.h"
+#include "dbl_openmp.h"
 #include "seq.h"
 
 static T *mk_test_array (long size)
@@ -55,9 +56,13 @@ int main (int argc, char *argv[])
     {
       method = &prefix_scan_seq;
     }
-  else  if(strcmp(argv[2], "nrec") == 0)
+  else if(strcmp(argv[2], "nrec") == 0)
     {
       method = &prefix_scan_nrec;
+    }
+  else if(strcmp(argv[2], "dbl") == 0)
+    {
+      method = &prefix_scan_dbl;
     }
   else
     {
