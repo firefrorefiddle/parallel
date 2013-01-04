@@ -1,4 +1,4 @@
-LIBS=-lrt
+LIBS=-lrt -lm
 OMPFLAGS=-fopenmp
 COMMON_HEADERS=../common/common.h ../common/helper.h ../common/timing.h
 COMMON_OBJS=../common/timing.o ../common/helper.o
@@ -9,10 +9,10 @@ CC=gcc -I../common -c -O3 $(OPT)
 all: merge
 
 merge: merge.o $(COMMON_HEADERS) $(COMMON_OBJS)
-	$(LD) -o merge merge.o $(COMMON_OBJS) $(LIBS) $(OMPFLAGS) 
+	$(LD) -o merge merge.o $(COMMON_OBJS) $(LIBS) $(OMPFLAGS)
 
 merge.o: merge.c $(COMMON_HEADERS)
-	$(CC) merge.c
+	$(CC) merge.c $(OMPFLAGS) 
 
 ../common/timing.o: $(COMMON_HEADERS)
 	cd ../common; make; cd $(OLDPWD)
