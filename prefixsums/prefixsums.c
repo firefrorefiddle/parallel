@@ -31,7 +31,9 @@ static void usage(int argc, char *argv[])
 
 int main (int argc, char *argv[])
 {
-  const long size = 100000000;
+  const long size = getenv("N") == NULL ? 100000000 : atoi(getenv("N"));
+
+  printf("Sample size: %ld max num of threads: %d\n", size, omp_get_max_threads());
 
   struct timespec t0, t1;
  
